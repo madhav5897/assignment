@@ -6,109 +6,53 @@
 </head>
 
 <body>
+
+  <router-outlet></router-outlet>
+<div *ngIf="isLoggedIn">
+  <h1>dashboard</h1>
+
   <div>
     <h4> Reactive form example</h4>
-    <button class="button">Add user</button>
-<br>
 <br>
     <form [formGroup]="employeeForm" (ngSubmit)="submitForm()">
       <div>
-        <label for="firstname">First Name</label>
-        <input type="text" class="form-control" formControlName="firstname" [(ngModel)]="firstname" >
+        <label for="user_name">Username</label>
+        <input type="text" class="form-control" formControlName="user_name" [(ngModel)]="user_name" >
       </div>
-      <div>
-      <span class="alert" *ngIf="firstnamerequired">
-          firstName is required.
-      </span>
-    </div>
 <br>
       <div>
-        <label for="lastname">Last Name</label>
-        <input type="text" class="form-control" formControlName="lastname" [(ngModel)]="lastname">
-      </div>
-      <div>
-        <span class="alert"  *ngIf="lastnamerequired">
-            lastName is required.
-        </span>
+        <label for="user_email">Email</label>
+        <input type="text" class="form-control" formControlName="user_email" [(ngModel)]="user_email">
       </div>
   <br>
       <div>
-        <label for="Email">Email</label>
-        <input type="text" class="form-control" formControlName="email" [(ngModel)]="email">
-      </div>
-      <div>
-        <span class="alert" *ngIf="emailrequired">
-            email is required.
-        </span>
+        <label for="Email">Contact No</label>
+        <input type="text" class="form-control" formControlName="user_contact_no" [(ngModel)]="user_contact_no">
       </div>
 
 <br>
       <div>
-        <label for="phone">Phone</label>
-        <input type="number" class="form-control" formControlName="phone" [(ngModel)]="phone">
-      </div>
-      <div>
-        <span class="alert" *ngIf="phonerequired">
-            phone is required.
-        </span>
+        <label for="phone">Password</label>
+        <input type="text" class="form-control" formControlName="user_password" [(ngModel)]="user_password">
       </div>
 <br>
-      <div>
-        <label for="company">Company</label>
-        <input type="text" class="form-control" formControlName="company" [(ngModel)]="company">
-      </div>      <div>
-        <span class="alert" *ngIf="companyrequired">
-            company is required.
-        </span>
-      </div>
 
       <br>
       <div>
         <span>Gender</span>
         <br>
         <div>
-          <input type="radio" class="form-control" value="male" name="gender" [(ngModel)]="gender">
+          <input type="radio" class="form-control" value="male" (click)="setmale()" name="gender" >
             <label for="male">Male</label>
         </div>
         <div>
-            <input type="radio" class="form-control" name="gender" [(ngModel)]="gender" value="female">
+            <input type="radio" class="form-control" name="gender" (click)="setfemale()"  value="female">
             <label for="female">Female</label>
         </div>
         <br>
       </div>
 
 
-      <div>
-        <label for="birthday">Birthday:</label>
-        <input type="date" class="form-control" formControlName="birthday" [(ngModel)]="birthday">
-      </div>
-      <div>
-        <span class="alert" *ngIf="birthdayrequired">
-            birthday is required.
-        </span>
-      </div>
-
-      <br>
-
-      <div>
-        <label for="password">Password</label>
-        <input type="text" class="form-control" formControlName="password" [(ngModel)]="password">
-      </div>
-      <div>
-        <span class="alert" *ngIf="passwordrequired">
-            password is required.
-        </span>
-      </div>
-<br>
-      <div>
-        <label for="conform">Conform Password</label>
-        <input type="text" class="form-control" formControlName="conform" [(ngModel)]="conform">
-      </div>
-      <div>
-        <span class="alert" *ngIf="conformrequired">
-            conform password is required.
-        </span>
-      </div>
 
       <br>
       <div class="action" *ngIf="editemployee">
@@ -130,28 +74,23 @@
       <thead>
 
         <tr class="head">
-          <th>First Name</th>
-          <th>Last Name</th>
+          <th>Username</th>
           <th>Email</th>
-          <th>Phone</th>
-          <th>Company</th>
-          <th>DOB</th>
-          <th>Edit</th>
-          <th>Delete</th>
+          <th>Contact No</th>
+          <th>Gender</th>
+          <th>action</th>
 
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let  employee of employeeData">
+        <tr *ngFor="let  employee of employeeData.data">
 
-          <td>{{employee.firstname}}</td>
-          <td>{{employee.lastname}}</td>
-          <td>{{employee.email}}</td>
-          <td>{{employee.phone}}</td>
-          <td>{{employee.company}}</td>
-          <td>{{employee.birthday}}</td>
-          <td><button (click)="edit(employee)">Edit</button></td>
-          <td><button (click)="delete(employee)">Delete</button></td>
+          <td>{{employee.user_name}}</td>
+          <td>{{employee.user_email}}</td>
+          <td>{{employee.user_phone_no}}</td>
+          <td>{{employee.user_gender}}</td>
+          <td><button (click)="edit(employee)">Edit</button>
+          <button (click)="delete(employee)">Delete</button></td>
         </tr>
 
       </tbody>
@@ -159,6 +98,9 @@
 
 
   </div>
+</div>
+
 </body>
+
 
 </html>
