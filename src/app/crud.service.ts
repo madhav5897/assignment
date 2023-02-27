@@ -7,48 +7,26 @@ import { EmployeeModel } from './employee-model';
 })
 export class CrudService {
 
-  private apiServer = "https://devrunner.co.in/machine_test/index.php/web_api/Users";
+  private apiServer = "http://localhost:3000";
 
   constructor(private httpClient: HttpClient) { }
 
   add(EmployeeModel:any) {
-    console.log(EmployeeModel.user_gender)
-    var formData: any = new FormData();
-    formData.append('user_name', EmployeeModel.user_name);
-    formData.append('user_email', EmployeeModel.user_email);
-    formData.append('user_phone_no', EmployeeModel.user_contact_no);
-    formData.append('user_password', EmployeeModel.user_password);
-
-
-
-    return this.httpClient.post<EmployeeModel>(this.apiServer + '/Register',formData) .subscribe({
+    return this.httpClient.post<EmployeeModel>(this.apiServer + '/Employees/',EmployeeModel) .subscribe({
       next: (res) => {
-        console.log(res)
       },
       error: (e) => console.error(e)
     });
   }  
 
 
-  login(loginForm:any){
-    console.log(loginForm)
-    return this.httpClient.get<EmployeeModel>(this.apiServer + '/login?user_email='+loginForm.user_email+"&user_pwd"+loginForm.user_pw) .subscribe({
-      next: (res) => {
-        console.log(res)
-      },
-      error: (e) => console.error(e)
-    });
-
-  }
-
-
 
   getAll(){
-    return this.httpClient.get<EmployeeModel[]>(this.apiServer + '/')
+    return this.httpClient.get<EmployeeModel[]>(this.apiServer + '/Employees/')
   }
 
-  updateinservice(EmployeeModel:any){
-    return this.httpClient.put<EmployeeModel>(this.apiServer + '/update_user/' , EmployeeModel).subscribe({
+  updateinservice(id:any, EmployeeModel:any){
+    return this.httpClient.put<EmployeeModel>(this.apiServer + '/Employees/' + id, EmployeeModel).subscribe({
       next: (res) => {
       },
       error: (e) => console.error(e)
@@ -56,15 +34,10 @@ export class CrudService {
     
   }
 
-  delete(id:string){
-
-    var formData1: any = new FormData();
-    formData1.append('user_id', id);
-
-
-    return this.httpClient.delete<EmployeeModel>(this.apiServer + '/remove_user' , formData1).subscribe({
+  delete(id:Number){
+    console.log(id)
+    return this.httpClient.delete<EmployeeModel>(this.apiServer + '/Employees/' + id).subscribe({
       next: (res) => {
-        console.log(res)
       },
       error: (e) => console.error(e)
     });
